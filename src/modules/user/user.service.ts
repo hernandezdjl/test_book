@@ -15,7 +15,7 @@ export class UserService {
     private readonly _userRepository: UserRepository,
   ) {}
 
-  async get(id: number): Promise<UserDto> {
+  async get(id: number): Promise<User> {
     if (!id) {
       throw new BadRequestException('id must be sent');
     }
@@ -27,20 +27,20 @@ export class UserService {
       throw new NotFoundException();
     }
 
-    return;
+    return user;
   }
 
-  async getAll(): Promise<UserDto[]> {
+  async getAll(): Promise<User[]> {
     const users: User[] = await this._userRepository.find({
       where: { status: 'ACTIVE' },
     });
 
-    return;
+    return users;
   }
 
-  async create(user: User): Promise<UserDto> {
+  async create(user: User): Promise<User> {
     const savedUser: User = await this._userRepository.save(user);
-    return;
+    return savedUser;
   }
 
   async update(id: number, user: User): Promise<void> {
